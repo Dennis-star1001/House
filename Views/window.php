@@ -1,6 +1,7 @@
 <?php
 require("../Model/Database/database.php");
 require("../Controller/Classes/Window/window.php");
+require("../Controller/Functions/Functions.php");
 if (isset($_GET['msg'])) {
     echo $_GET['msg'];
 }
@@ -41,24 +42,19 @@ $msg = "";
         <br> -->
 
         <label for="">Name</label>
-        <select name="name">
-            <?php
-            $db = new Database();
-            $data = $db->lookUp("window", "*");
-            foreach ($data as $value) {
-                $names = $value['name'];
-                echo " <option value='$names'>$names</option>";
-            }
-            ?>
-        </select>
+        <?php
+        $db = new Database();
+        Fun::dynamicDropdown("windows", "window", "name", "", "name", "name");
+
+        ?>
 
 
         <label for="">Width</label>
         <input type="text" name='width'>
-        
+
         <label for="">Height</label>
         <input type="text" name='height'>
-
+        <input type="submit" name='windows'>
     </form>
     <?php
 

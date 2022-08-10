@@ -2,7 +2,7 @@
 class Fun extends Database
 {
 
-   
+
 
     public static function redirect($url, $type, $msg)
     {
@@ -16,20 +16,22 @@ class Fun extends Database
             if (!isset($params[$i]) || empty($params[$i])) {
                 return true;
             }
-       
-           
         }
-        return false;   
+        return false;
     }
 
-    public function customDropdown($name,$table,$label,$value)
+    public static function dynamicDropdown($name, $table, $label,$condition, $value = "id", $title)
     {
-      echo "<select id = '$name' name='$name'>";
-        $data = $this->lookUp($table, "*");
+        global $db;
+        $data = $db->lookUp($table, "*",$condition);
+
+        echo "<select id = '$name' name='$name'>";
+        echo " <option value=''>Select $title</option>";
+
         foreach ($data as $rlt) {
-            $label = $rlt[$label];
+            $lab = $rlt[$label];
             $value = $rlt[$value];
-            echo " <option value='$value'>$label</option>";
+            echo " <option value='$value'>$lab</option>";
         }
         echo "</select>";
     }
@@ -40,6 +42,4 @@ class Fun extends Database
         print_r($array);
         echo "</pre>";
     }
-   
- 
 }
